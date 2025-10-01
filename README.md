@@ -56,14 +56,6 @@ The cleaning process follows a structured approach:
 
 ---
 
-## 🔮 Next Steps
-This dataset can now be used for:
-- Exploratory Data Analysis (EDA)  
-- Trend analysis of layoffs across industries and countries  
-- Predictive modeling
-
----
-
 ## 📜 License
 This project is open-source under the [MIT License](LICENSE).
 
