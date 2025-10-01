@@ -1,42 +1,70 @@
 # World Layoffs Data Cleaning (SQL Project)
 
-This project demonstrates a **SQL-based data cleaning workflow** on a global layoffs dataset.  
-It highlights the process of preparing raw data for analysis: handling duplicates, fixing inconsistencies, managing null values, and cleaning schema issues.
+This project demonstrates a **SQL-based data cleaning workflow** using a layoffs dataset.  
+The goal is to show step-by-step cleaning techniques commonly used in real-world analytics projects.
 
 ---
 
-## 📊 Dataset
-- **File:** `data/layoffs_raw.csv`  
-- Contains company layoff records, with columns such as:
-  - Company, location, industry
-  - Total laid off, percentage laid off
-  - Date, stage, country, funding information  
+## 📊 Project Overview
+The dataset (`world_layoffs.layoffs`) contains company layoff records, including details such as:
+- Company, industry, location
+- Number of employees laid off
+- Funding, stage, and country information
+- Date of layoffs
+
+The raw data includes duplicates, inconsistent formatting, null values, and other issues that must be addressed before meaningful analysis.
 
 ---
 
-## 🛠️ Data Cleaning Steps
-The SQL script (`sql/layoffs_data_cleaning.sql`) covers:
+## 🛠️ Steps in Data Cleaning
+The cleaning process follows a structured approach:
 
-1. **Staging the Data**  
-   - Created staging tables (`layoffs_staging`, `layoffs_staging2`) to preserve raw data.
+1. **Create a Staging Table**  
+   - A copy of the raw table is created for cleaning (`layoffs_staging`, `layoffs_staging2`)  
+   - Keeps the raw data intact for reference
 
-2. **Removing Duplicates**  
-   - Used `ROW_NUMBER()` with `PARTITION BY` to identify duplicates.  
-   - Deleted duplicate rows while preserving unique records.
+2. **Remove Duplicates**  
+   - Used `ROW_NUMBER()` with `PARTITION BY` to identify duplicate rows  
+   - Deleted duplicates while keeping one clean version of each record
 
-3. **Standardizing Data**  
-   - Converted blank strings → `NULL`  
-   - Standardized industry names (e.g., `"CryptoCurrency"` → `"Crypto"`)  
-   - Fixed inconsistent country names (e.g., `"United States."` → `"United States"`)  
-   - Converted `date` from `TEXT` → `DATE`
+3. **Standardize Data**  
+   - Converted blank strings to `NULL` for easier handling  
+   - Standardized inconsistent values (e.g., `"CryptoCurrency"` → `"Crypto"`, `"United States."` → `"United States"`)  
+   - Converted `date` column from `TEXT` to proper `DATE`
 
-4. **Handling Null Values**  
-   - Retained nulls in useful columns for analysis  
-   - Deleted rows where both `total_laid_off` and `percentage_laid_off` were missing
+4. **Handle Null Values**  
+   - Retained nulls where they made sense (`total_laid_off`, `percentage_laid_off`)  
+   - Removed rows where **both `total_laid_off` and `percentage_laid_off`** were missing
 
-5. **Schema Cleanup**  
-   - Dropped helper columns (`row_num`) after cleaning
+5. **Drop Unnecessary Columns**  
+   - Removed helper column (`row_num`) after cleaning
 
 ---
 
-## 📂 Project Structure
+## 📂 Files
+- `sql/layoffs_data_cleaning.sql` → Full SQL script with explanations
+- `docs/before_after_snapshots.md` → (Optional) Example queries showing the dataset before & after cleaning
+
+---
+
+## 🚀 Skills Demonstrated
+- SQL Window Functions (`ROW_NUMBER()`)
+- Data standardization and formatting
+- Null handling strategies
+- Schema modifications (`ALTER TABLE`, `DROP COLUMN`)
+- Documentation of data cleaning workflow
+
+---
+
+## 🔮 Next Steps
+This dataset can now be used for:
+- Exploratory Data Analysis (EDA)  
+- Trend analysis of layoffs across industries and countries  
+- Predictive modeling
+
+---
+
+## 📜 License
+This project is open-source under the [MIT License](LICENSE).
+
+---
